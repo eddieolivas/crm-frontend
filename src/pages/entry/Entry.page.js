@@ -30,6 +30,7 @@ export const Entry = () => {
       return alert("Fill in an email and password, please.");
     }
 
+    //TODO call API to submit the form
     console.log( email, password );
   };
 
