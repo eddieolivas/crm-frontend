@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
-export const Login = ({ inputChangeHandler, email, password, onSubmitHandler }) => {
+export const Login = ({ inputChangeHandler, email, password, onLoginHandler, formSwitcher }) => {
   return (
     <Container>
       <Row>
@@ -11,7 +11,7 @@ export const Login = ({ inputChangeHandler, email, password, onSubmitHandler }) 
           <hr />
           <Form
             autoComplete="off"
-            onSubmit={onSubmitHandler}
+            onSubmit={onLoginHandler}
           >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -37,8 +37,10 @@ export const Login = ({ inputChangeHandler, email, password, onSubmitHandler }) 
                 placeholder="Password" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Log In
             </Button>
+            <hr />
+            <a href="#!" onClick={() => formSwitcher('reset')}>Forgot Your Password?</a>
           </Form>
         </Col>
       </Row>
@@ -48,7 +50,8 @@ export const Login = ({ inputChangeHandler, email, password, onSubmitHandler }) 
 
 Login.propTypes = {
   inputChangeHandler: PropTypes.func.isRequired,
-  onSubmitHandler: PropTypes.func.isRequired,
+  onLoginHandler: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired
+  password: PropTypes.string.isRequired,
+  formSwitcher: PropTypes.func.isRequired
 }
