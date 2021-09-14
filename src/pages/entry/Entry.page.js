@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
+import { Login } from '../../components/Login/Login.comp';
 
 import './entry.style.css';
 
 export const Entry = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const inputChangeHandler = e => {
+    const { name, value } = e.target;
+    
+    switch(name) {
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+          setPassword(value);
+          break;
+      default:
+        break;
+    }
+  };
+
+  const onSubmitHandler = e => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      return alert("Fill in an email and password, please.");
+    }
+
+    console.log( email, password );
+  };
+
   return (
     <div className="entry-page bg-info">
-      <Jumbotron>
-        <h1>Entry page</h1>
-        <p>This is a jumbotron.</p>
-        <Button variant="primary">Primary Button</Button>
-      </Jumbotron>
+      <div className="loginContainer rounded bg-light p-5">
+        <Login 
+          inputChangeHandler={inputChangeHandler}
+          onSubmitHandler={onSubmitHandler}
+          email={email}
+          password={password}
+        />
+      </div>
     </div>
   )
 }
