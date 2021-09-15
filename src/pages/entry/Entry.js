@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Login } from '../../components/Login/Login.comp';
-import { PasswordReset } from '../../components/password-reset/PasswordReset.comp';
+import { Login } from '../../components/Login/Login';
+import { PasswordReset } from '../../components/password-reset/PasswordReset';
 
 import './entry.style.css';
 
@@ -10,6 +10,7 @@ export const Entry = () => {
   const [password, setPassword] = useState('');
   const [formLoad, setFormLoad] = useState('login');
 
+  // A function to set up two way binding for inputs in our form
   const inputChangeHandler = e => {
     const { name, value } = e.target;
     
@@ -25,6 +26,10 @@ export const Entry = () => {
     }
   };
 
+  const formSwitcher = formType => {
+    setFormLoad(formType);
+  };
+
   const onLoginHandler = e => {
     e.preventDefault();
 
@@ -34,10 +39,6 @@ export const Entry = () => {
 
     //TODO call API to submit the form
     console.log( email, password );
-  };
-
-  const formSwitcher = formType => {
-    setFormLoad(formType);
   };
 
   const onResetHandler = e => {
@@ -52,8 +53,8 @@ export const Entry = () => {
   };
 
   return (
-    <div className="entry-page bg-info">
-      <div className="loginContainer rounded bg-light p-4">
+    <div className="entry-page bg-light.bg-gradient">
+      <div className="loginContainer rounded bg-white p-4">
         {formLoad === 'login' && 
           <Login 
             inputChangeHandler={inputChangeHandler}
