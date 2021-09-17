@@ -2,9 +2,13 @@ import React from 'react';
 
 import { Table } from 'react-bootstrap';
 
-export const TicketTable = () => {
+export const TicketTable = ({tickets}) => {
   return (
-    <Table striped bordered hover>
+    <Table 
+      striped
+      bordered
+      hover
+    >
       <thead>
         <tr>
           <th>Ticket Number</th>
@@ -14,30 +18,18 @@ export const TicketTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>SSL Issue</td>
-          <td>Client Response Pending</td>
-          <td>2021-09-14</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>SSL Issue</td>
-          <td>Client Response Pending</td>
-          <td>2021-09-14</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>SSL Issue</td>
-          <td>Client Response Pending</td>
-          <td>2021-09-14</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>SSL Issue</td>
-          <td>Client Response Pending</td>
-          <td>2021-09-14</td>
-        </tr>
+        {tickets.length ? tickets.map( ticket => 
+            <tr key={ticket.id}>
+              <td>{ticket.id}</td>
+              <td>{ticket.subject}</td>
+              <td>{ticket.status}</td>
+              <td>{ticket.createDate}</td>
+            </tr>
+        ) : (
+          <tr>
+            <td colSpan="4" className="text-center">No tickets to display</td>
+          </tr>
+        )}
       </tbody>
     </Table>
   )
