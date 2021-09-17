@@ -1,17 +1,18 @@
 import React from 'react';
-
 import { Table } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-export const TicketTable = ({tickets}) => {
+export const TicketTable = ({ tickets }) => {
   return (
     <Table 
       striped
       bordered
       hover
+      className="mt-4"
     >
       <thead>
         <tr>
-          <th>Ticket Number</th>
+          <th>ID</th>
           <th>Subject</th>
           <th>Status</th>
           <th>Date Opened</th>
@@ -33,4 +34,8 @@ export const TicketTable = ({tickets}) => {
       </tbody>
     </Table>
   )
+}
+
+TicketTable.propTypes = {
+  tickets: PropTypes.array.isRequired
 }
