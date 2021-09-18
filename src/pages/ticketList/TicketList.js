@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-import { PageBreadcrumb } from '../../components/breadcrumb/Breadcrumb';
-import { SearchForm } from '../../components/searchForm/SearchForm';
-import { TicketTable } from '../../components/TicketTable/TicketTable';
-import tickets from '../../assets/data/dummy-ticket.json';
+import { PageBreadcrumb } from "../../components/breadcrumb/Breadcrumb";
+import { SearchForm } from "../../components/searchForm/SearchForm";
+import { TicketTable } from "../../components/TicketTable/TicketTable";
+import tickets from "../../assets/data/dummy-ticket.json";
 
 export const TicketList = () => {
-  const [searchString, setSearchString] = useState('');
-  const [displayTicket, setDisplayTicket] = useState(tickets);
+  const [searchString, setSearchString] = useState("");
+  const [filteredTickets, setDisplayTicket] = useState(tickets);
 
-  useEffect(() => {
-  }, [searchString, displayTicket]);
+  useEffect(() => {}, [searchString, filteredTickets]);
 
-  const onChangeHandler = e => {
-    const {value} = e.target;
+  // Sets up two-way binding for the search form
+  const onChangeHandler = (e) => {
+    const { value } = e.target;
     setSearchString(value);
     searchTickets(value);
   };
 
-  const searchTickets = search => {
-    const displayTickets = tickets.filter(ticket => 
+  // Filter tickets by subject based on search input content
+  const searchTickets = (search) => {
+    const filtered = tickets.filter((ticket) =>
       ticket.subject.toLowerCase().includes(search.toLowerCase())
     );
-    
-    setDisplayTicket(displayTickets);
+
+    setDisplayTicket(filtered);
   };
 
   return (
@@ -41,16 +42,16 @@ export const TicketList = () => {
         <Col className="text-right">
           <SearchForm
             onChangeHandler={onChangeHandler}
-            searchString={searchString} />
+            searchString={searchString}
+          />
         </Col>
       </Row>
       <hr />
       <Row>
         <Col>
-          <TicketTable
-            tickets={displayTicket} />
+          <TicketTable tickets={filteredTickets} />
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
