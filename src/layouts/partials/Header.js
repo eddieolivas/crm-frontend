@@ -1,6 +1,8 @@
-import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import logo from '../../assets/images/logo.png';
+import React from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+import logo from "../../assets/images/logo.png";
 
 export const Header = () => {
   return (
@@ -9,19 +11,21 @@ export const Header = () => {
       collapseOnSelect
       variant="dark"
       bg="info"
-      expand="md">
+      expand="md"
+    >
       <Navbar.Brand>
-        <a href="/"><img src={logo} alt="CRM logo" width="100px" /></a>
+        <a href="/">
+          <img src={logo} alt="CRM logo" width="100px" />
+        </a>
       </Navbar.Brand>
-      <Navbar.Toggle 
-        aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
-          <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-          <Nav.Link href="/dashboard">Tickets</Nav.Link>
-          <Nav.Link href="/dashboard">Logout</Nav.Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard">Tickets</Link>
+          <Link to="/dashboard">Logout</Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  )
-}
+  );
+};
