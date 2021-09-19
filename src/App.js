@@ -2,9 +2,10 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import "./App.css";
 import { DefaultLayout } from "./layouts/DefaultLayout";
-import { NewTicket } from "./pages/newTicket/NewTicket";
-import { Dashboard } from "./pages/dashboard/Dashboard";
-import { TicketList } from "./pages/ticketList/TicketList";
+// import { NewTicket } from "./pages/newTicket/NewTicket";
+// import { Dashboard } from "./pages/dashboard/Dashboard";
+// import { TicketList } from "./pages/ticketList/TicketList";
+import { Ticket } from "./pages/ticket/Ticket";
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <Router>
         <Switch>
           <DefaultLayout>
-            <Dashboard />
-            <NewTicket />
-            <TicketList />
+            {/* <Dashboard /> */}
+            {/* <NewTicket /> */}
+            {/* <TicketList /> */}
+            <Ticket />
           </DefaultLayout>
         </Switch>
       </Router>

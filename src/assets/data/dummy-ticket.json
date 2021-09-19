@@ -3,7 +3,29 @@
     "id": 1,
     "subject": "SSL issue",
     "status": "Pending client response",
-    "createDate": "2021-09-16"
+    "createDate": "2021-09-16",
+    "history": [
+      {
+        "date": "09-21-2021",
+        "message": "Hello this is the message!",
+        "sender": "Client"
+      },
+      {
+        "date": "09-21-2021",
+        "message": "Hello this is the first response.",
+        "sender": "Operator"
+      },
+      {
+        "date": "09-22-2021",
+        "message": "Hello this is second the message!",
+        "sender": "Client"
+      },
+      {
+        "date": "09-22-2021",
+        "message": "Hello this is the second response.",
+        "sender": "Operator"
+      }
+    ]
   },
   {
     "id": 2,

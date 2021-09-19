@@ -2,9 +2,9 @@
   display: grid;
   grid-template-rows: 146px auto 3.5rem;
   grid-template-areas:
-  "header"
-  "main"
-  "footer";
+    "header"
+    "main"
+    "footer";
 }
 
 header {
@@ -14,6 +14,7 @@ header {
 main {
   grid-area: main;
   min-height: 88vh;
+  padding: 1rem 0;
 }
 
 footer {
