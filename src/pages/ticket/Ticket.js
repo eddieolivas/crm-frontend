@@ -42,10 +42,8 @@ export const Ticket = () => {
             <strong>Status:</strong> {ticket.status}
           </div>
         </Col>
-        <Col>
-          <Button variant="outline-info" className="text-end">
-            Close Ticket
-          </Button>
+        <Col className="text-end">
+          <Button variant="outline-info">Close Ticket</Button>
         </Col>
       </Row>
       <Row className="mt-4">
