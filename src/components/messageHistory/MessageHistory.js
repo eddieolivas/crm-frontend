@@ -17,5 +17,5 @@ export const MessageHistory = ({ messages }) => {
 };
 
 MessageHistory.propTypes = {
-  messages: PropTypes.array.isRequired,
+  messages: PropTypes.array,
 };

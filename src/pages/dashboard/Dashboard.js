@@ -17,12 +17,7 @@ export const Dashboard = () => {
       <Row>
         <Col className="text-end mt-5 mb-2">
           <Link to="/new-ticket">
-            <Button
-              className="bg-info"
-              style={{ fontSize: "1.2rem", padding: "10px 30px" }}
-            >
-              Add New Ticket
-            </Button>
+            <Button className="bg-info">Add New Ticket</Button>
           </Link>
         </Col>
       </Row>

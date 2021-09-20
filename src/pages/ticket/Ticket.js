@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 import { PageBreadcrumb } from "../../components/breadcrumb/Breadcrumb";
 import tickets from "../../assets/data/dummy-ticket.json";
 import { MessageHistory } from "../../components/messageHistory/MessageHistory";
 import { UpdateTicket } from "../../components/updateTicket/UpdateTicket";
-const ticket = tickets[0];
+// const ticket = tickets[0];
 
 export const Ticket = () => {
-  const [replyMessage, setReplyMessage] = useState("");
+  const { ticketid } = useParams();
 
-  useEffect(() => {}, [replyMessage]);
+  const [replyMessage, setReplyMessage] = useState("");
+  const [ticket, setTicket] = useState("");
+
+  useEffect(() => {
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i].id == ticketid) {
+        setTicket(tickets[i]);
+        continue;
+      }
+    }
+  }, [replyMessage, ticketid]);
 
   const inputChangeHandler = (e) => {
     setReplyMessage(e.target.value);
@@ -32,6 +43,7 @@ export const Ticket = () => {
       </Row>
       <Row>
         <Col>
+          {ticketid}
           <div className="subject">
             <strong>Subject:</strong> {ticket.subject}
           </div>
@@ -48,7 +60,7 @@ export const Ticket = () => {
       </Row>
       <Row className="mt-4">
         <Col>
-          <MessageHistory messages={ticket.history} />
+          {ticket.history && <MessageHistory messages={ticket.history} />}
         </Col>
       </Row>
       <hr />

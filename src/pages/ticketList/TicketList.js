@@ -39,7 +39,7 @@ export const TicketList = () => {
       <Row>
         <Col>
           <Link to="/new-ticket">
-            <Button variant="info">Add New Ticket</Button>
+            <Button className="bg-info">Add New Ticket</Button>
           </Link>
         </Col>
         <Col className="text-right">
