@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const TicketTable = () => {
-  const { tickets, isLoading, error } = useSelector((state) => state.tickets);
+  const { searchTicketList, isLoading, error } = useSelector(
+    (state) => state.tickets
+  );
 
   if (isLoading) return <h3>Loading...</h3>;
 
@@ -21,8 +23,8 @@ export const TicketTable = () => {
         </tr>
       </thead>
       <tbody>
-        {tickets.length ? (
-          tickets.map((ticket) => (
+        {searchTicketList.length ? (
+          searchTicketList.map((ticket) => (
             <tr key={ticket._id}>
               <td>{ticket._id}</td>
               <td>
