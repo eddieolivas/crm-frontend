@@ -1,25 +1,31 @@
-import React from 'react';
-import { Form, Row, Col } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Form, Row, Col } from "react-bootstrap";
+import { filterSearchTicket } from "../../pages/ticketList/ticketActions";
 
-export const SearchForm = ({ onChangeHandler, searchString }) => {
+export const SearchForm = () => {
+  const dispatch = useDispatch();
+
+  const onChangeHandler = (e) => {
+    const { value } = e.target;
+
+    dispatch(filterSearchTicket(value));
+  };
+
   return (
     <Form>
       <Form.Group as={Row}>
-        <Form.Label column sm="5" className="text-end">Search: </Form.Label>
+        <Form.Label column sm="5" className="text-end">
+          Search:{" "}
+        </Form.Label>
         <Col sm="7">
           <Form.Control
             name="searchString"
             onChange={onChangeHandler}
-            value={searchString}
-            placeholder="Search tickets..."></Form.Control>
+            placeholder="Search tickets..."
+          ></Form.Control>
         </Col>
       </Form.Group>
     </Form>
-  )
-}
-
-SearchForm.propTypes = {
-  onChangeHandler: PropTypes.func.isRequired,
-  searchString: PropTypes.string.isRequired
-}
+  );
+};
