@@ -1,5 +1,6 @@
 .entry-page {
   align-items: center;
+  background-color: #1bbfec;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -11,5 +12,5 @@
 }
 
 h1 {
-  color: #1BBFEC;
+  color: #1bbfec;
 }
