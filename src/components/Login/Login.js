@@ -1,8 +1,26 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+
+import { loginPending, loginFailed, loginSuccess } from "./loginSlice";
+import { userLogin } from "../../api/userApi";
+import { getUserProfile } from "../../pages/dashboard/userAction";
 
 export const Login = ({ formSwitcher }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { isLoading, error } = useSelector((state) => state.login);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,15 +40,28 @@ export const Login = ({ formSwitcher }) => {
     }
   };
 
-  const onLoginHandler = (e) => {
+  const onLoginHandler = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
       return alert("Please fill in an email and password.");
     }
 
-    //TODO call API to submit the form
-    console.log(email, password);
+    dispatch(loginPending());
+
+    try {
+      const isAuth = await userLogin({ email, password });
+
+      if (isAuth.status === "error") {
+        return dispatch(loginFailed(isAuth.message));
+      }
+
+      dispatch(loginSuccess());
+      dispatch(getUserProfile());
+      history.push("/dashboard");
+    } catch (error) {
+      dispatch(loginFailed(error.message));
+    }
   };
 
   return (
@@ -39,6 +70,7 @@ export const Login = ({ formSwitcher }) => {
         <Col>
           <h1>Client Login</h1>
           <hr />
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form autoComplete="off" onSubmit={onLoginHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -68,6 +100,13 @@ export const Login = ({ formSwitcher }) => {
             <Button variant="primary" type="submit">
               Log In
             </Button>
+            {isLoading && (
+              <Spinner
+                style={{ marginLeft: "20px" }}
+                variant="primary"
+                animation="border"
+              />
+            )}
             <hr />
             <a href="#!" onClick={() => formSwitcher("reset")}>
               Forgot Your Password?

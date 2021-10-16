@@ -9,6 +9,7 @@ export const Header = () => {
   const history = useHistory();
 
   const logOut = () => {
+    sessionStorage.removeItem("accessJWT");
     history.push("/");
   };
 
