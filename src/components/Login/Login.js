@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -19,7 +19,11 @@ import { getUserProfile } from "../../pages/dashboard/userAction";
 export const Login = ({ formSwitcher }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isLoading, error } = useSelector((state) => state.login);
+  const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    sessionStorage.getItem("accessJWT") && history.push("/dashboard");
+  }, [history, isAuth]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

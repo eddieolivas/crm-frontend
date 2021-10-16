@@ -3,13 +3,16 @@ import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router";
 
+import { userLogout } from "../../api/userApi";
 import logo from "../../assets/images/logo.png";
 
 export const Header = () => {
   const history = useHistory();
 
-  const logOut = () => {
+  const logOut = async () => {
+    userLogout();
     sessionStorage.removeItem("accessJWT");
+    localStorage.removeItem("crmSite");
     history.push("/");
   };
 
