@@ -5,11 +5,15 @@ import "./messageHistory.style.css";
 
 export const MessageHistory = ({ messages }) => {
   if (!messages) return null;
+
   return messages.map((message, index) => (
     <div key={index} className="messageHistory mt-5">
       <div className="send">
         <div className="sender fw-bold">{message.sender}</div>
-        <div className="date fw-bold">{message.date}</div>
+        <div className="date fw-bold">
+          {message.messageDate &&
+            new Date(message.messageDate).toLocaleString()}
+        </div>
       </div>
       <div className="message">{message.message}</div>
     </div>

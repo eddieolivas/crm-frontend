@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess } from "../Login/loginSlice";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { getNewAccessJWT } from "../../api/userApi";
+import { getUserProfile } from "../../pages/dashboard/userAction";
 
 export const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     const updateAccessJWT = async () => {
@@ -16,10 +18,13 @@ export const PrivateRoute = ({ children, ...rest }) => {
       result && dispatch(loginSuccess());
     };
 
-    updateAccessJWT();
+    !sessionStorage.getItem("accessJWT") &&
+      localStorage.getItem("crmSite") &&
+      updateAccessJWT();
 
-    sessionStorage.getItem("accessJWT") && dispatch(loginSuccess());
-  }, [dispatch]);
+    !isAuth && sessionStorage.getItem("accessJWT") && dispatch(loginSuccess());
+    !user._id && dispatch(getUserProfile());
+  }, [dispatch, isAuth, user._id]);
 
   return (
     <Route

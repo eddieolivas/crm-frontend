@@ -1,22 +1,85 @@
-import React from "react";
-import { Form, Container, Row, Col, Button } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import {
+  Form,
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
 
+import { addNewTicket } from "./addTicketActions";
+
+import { shortText } from "../../utils/validation";
 import "./addTicketForm.style.css";
 
-export const AddTicketForm = ({
-  formData,
-  onChangeHandler,
-  addTicketHandler,
-  formDataError,
-}) => {
-  console.log(formData);
+const initialFormData = {
+  subject: "",
+  createDate: "",
+  message: "",
+};
+
+const initialFormError = {
+  subject: false,
+  createDate: false,
+  message: false,
+};
+
+export const AddTicketForm = () => {
+  const dispatch = useDispatch();
+  const {
+    user: { name },
+  } = useSelector((state) => state.user);
+
+  const { isLoading, error, successMessage } = useSelector(
+    (state) => state.newTicket
+  );
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [formDataError, setFormDataError] = useState(initialFormError);
+
+  useEffect(() => {}, [formData, formDataError]);
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const addTicketHandler = async (e) => {
+    e.preventDefault();
+
+    setFormDataError(initialFormError);
+
+    const isValid = await shortText(formData.subject);
+
+    setFormDataError({
+      ...initialFormError,
+      subject: !isValid,
+    });
+
+    dispatch(addNewTicket({ ...formData, sender: name }));
+  };
+
   return (
     <Container>
       <Row>
         <Col>
           <h1 className="text-info">Add New Ticket</h1>
           <hr />
+          <div>
+            {error && <Alert variant="danger">{error}</Alert>}
+            {successMessage && (
+              <Alert variant="success">{successMessage}</Alert>
+            )}
+            {isLoading && <Spinner variant="primary" animation="border" />}
+          </div>
           <Form
             autoComplete="off"
             onSubmit={addTicketHandler}
@@ -56,10 +119,10 @@ export const AddTicketForm = ({
               <Form.Control
                 as="textarea"
                 type="date"
-                name="details"
+                name="message"
                 rows="5"
                 onChange={onChangeHandler}
-                value={formData.details}
+                value={formData.message}
                 placeholder="Describe the issue."
                 required
               />
@@ -74,8 +137,8 @@ export const AddTicketForm = ({
   );
 };
 
-AddTicketForm.propTypes = {
-  formData: PropTypes.object.isRequired,
-  onChangeHandler: PropTypes.func.isRequired,
-  addTicketHandler: PropTypes.func.isRequired,
-};
+// AddTicketForm.propTypes = {
+//   formData: PropTypes.object.isRequired,
+//   onChangeHandler: PropTypes.func.isRequired,
+//   addTicketHandler: PropTypes.func.isRequired,
+// };

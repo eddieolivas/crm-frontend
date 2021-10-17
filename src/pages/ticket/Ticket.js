@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { PageBreadcrumb } from "../../components/breadcrumb/Breadcrumb";
-import tickets from "../../assets/data/dummy-ticket.json";
 import { MessageHistory } from "../../components/messageHistory/MessageHistory";
 import { UpdateTicket } from "../../components/updateTicket/UpdateTicket";
+import { getSingleTicket, closeTicket } from "../ticketList/ticketActions";
 // const ticket = tickets[0];
 
 export const Ticket = () => {
+  const dispatch = useDispatch();
   const { ticketid } = useParams();
 
-  const [replyMessage, setReplyMessage] = useState("");
-  const [ticket, setTicket] = useState("");
+  const { isLoading, error, selectedTicket, replyMessage, replyTicketError } =
+    useSelector((state) => state.tickets);
 
   useEffect(() => {
-    for (let i = 0; i < tickets.length; i++) {
-      if (tickets[i].id.toString() === ticketid) {
-        setTicket(tickets[i]);
-        continue;
-      }
-    }
-  }, [replyMessage, ticketid]);
-
-  const inputChangeHandler = (e) => {
-    setReplyMessage(e.target.value);
-  };
-
-  // TODO: Connect submit to API.
-  const replyMessageHandler = (e) => {
-    e.preventDefault();
-
-    setReplyMessage(e.target);
-  };
+    dispatch(getSingleTicket(ticketid));
+  }, [ticketid, dispatch]);
 
   return (
     <Container>
@@ -43,34 +29,50 @@ export const Ticket = () => {
       </Row>
       <Row>
         <Col>
+          {isLoading && <Spinner variant="primary" animation="border" />}
+          {error && <Alert variant="danger">{error}</Alert>}
+          {replyMessage && <Alert variant="success">{replyMessage}</Alert>}
+          {replyTicketError && (
+            <Alert variant="danger">{replyTicketError}</Alert>
+          )}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           {ticketid}
           <div className="subject">
-            <strong>Subject:</strong> {ticket.subject}
+            <strong>Subject:</strong> {selectedTicket.subject}
           </div>
           <div className="date">
-            <strong>Create Date:</strong> {ticket.createDate}
+            <strong>Create Date:</strong>{" "}
+            {selectedTicket.createDate &&
+              new Date(selectedTicket.createDate).toLocaleString()}
           </div>
           <div className="status">
-            <strong>Status:</strong> {ticket.status}
+            <strong>Status:</strong> {selectedTicket.status}
           </div>
         </Col>
         <Col className="text-end">
-          <Button variant="outline-info">Close Ticket</Button>
+          <Button
+            variant="outline-info"
+            onClick={() => dispatch(closeTicket(ticketid))}
+            disabled={selectedTicket.status === "Closed"}
+          >
+            Close Ticket
+          </Button>
         </Col>
       </Row>
       <Row className="mt-4">
         <Col>
-          {ticket.history && <MessageHistory messages={ticket.history} />}
+          {selectedTicket.conversations && (
+            <MessageHistory messages={selectedTicket.conversations} />
+          )}
         </Col>
       </Row>
       <hr />
       <Row className="mt-4">
         <Col>
-          <UpdateTicket
-            replyMessage={replyMessage}
-            submitHandler={replyMessageHandler}
-            inputChangeHandler={inputChangeHandler}
-          />
+          <UpdateTicket _id={ticketid} />
         </Col>
       </Row>
     </Container>
