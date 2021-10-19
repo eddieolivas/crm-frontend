@@ -44,9 +44,9 @@ export const AddTicketForm = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(clearSuccessMessage());
+      successMessage && dispatch(clearSuccessMessage());
     };
-  }, [formData, formDataError, dispatch]);
+  }, [formData, formDataError, dispatch, successMessage]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;

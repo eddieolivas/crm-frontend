@@ -7,6 +7,7 @@ import { PageBreadcrumb } from "../../components/breadcrumb/Breadcrumb";
 import { MessageHistory } from "../../components/messageHistory/MessageHistory";
 import { UpdateTicket } from "../../components/updateTicket/UpdateTicket";
 import { getSingleTicket, closeTicket } from "../ticketList/ticketActions";
+import { clearReplyMessage } from "../ticketList/ticketSlice";
 // const ticket = tickets[0];
 
 export const Ticket = () => {
@@ -18,7 +19,11 @@ export const Ticket = () => {
 
   useEffect(() => {
     dispatch(getSingleTicket(ticketid));
-  }, [ticketid, dispatch]);
+
+    return () => {
+      (replyMessage || replyTicketError) && dispatch(clearReplyMessage());
+    };
+  }, [ticketid, dispatch, replyMessage, replyTicketError]);
 
   return (
     <Container>

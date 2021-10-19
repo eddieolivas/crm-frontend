@@ -78,6 +78,7 @@ export const closeTicket = (_id) => async (dispatch) => {
     dispatch(getSingleTicket(_id));
 
     dispatch(closeTicketSuccess(result.message));
+    dispatch(fetchAllTickets());
   } catch (error) {
     dispatch(replyTicketFailed(error.message));
   }
