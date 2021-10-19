@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { clearSuccessMessage } from "./addTicketSlice";
 // import PropTypes from "prop-types";
 
 import { addNewTicket } from "./addTicketActions";
@@ -41,7 +42,11 @@ export const AddTicketForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formDataError, setFormDataError] = useState(initialFormError);
 
-  useEffect(() => {}, [formData, formDataError]);
+  useEffect(() => {
+    return () => {
+      dispatch(clearSuccessMessage());
+    };
+  }, [formData, formDataError, dispatch]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;

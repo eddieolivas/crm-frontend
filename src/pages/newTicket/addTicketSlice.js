@@ -22,11 +22,20 @@ const newTicketSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
+    clearSuccessMessage: (state) => {
+      state.isLoading = false;
+      state.successMessage = "";
+    },
   },
 });
 
 const { reducer, actions } = newTicketSlice;
 
-export const { newTicketFailed, newTicketLoading, newTicketSuccess } = actions;
+export const {
+  newTicketFailed,
+  newTicketLoading,
+  newTicketSuccess,
+  clearSuccessMessage,
+} = actions;
 
 export default reducer;
