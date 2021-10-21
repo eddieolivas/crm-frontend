@@ -10,7 +10,7 @@ import {
   Spinner,
   Alert,
 } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { loginPending, loginFailed, loginSuccess } from "./loginSlice";
 import { userLogin } from "../../api/userApi";
@@ -90,7 +90,6 @@ export const Login = ({ formSwitcher }) => {
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -115,6 +114,10 @@ export const Login = ({ formSwitcher }) => {
             <a href="#!" onClick={() => formSwitcher("reset")}>
               Forgot Your Password?
             </a>
+            <br />
+            <p className="py-4">
+              Are you new here? <Link to="/registration">Register Now</Link>
+            </p>
           </Form>
         </Col>
       </Row>
