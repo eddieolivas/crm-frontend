@@ -6,6 +6,24 @@ const userProfileUrl = `${rootUrl}user`;
 const logoutUrl = `${rootUrl}user/logout`;
 const getTokenURL = `${rootUrl}tokens`;
 
+export const registerNewUser = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.post(userProfileUrl, formData);
+      console.log(result.data);
+
+      if (result.data.status === "success") {
+        resolve(result.data);
+      }
+
+      reject(result.data);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+
 export const userLogin = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
