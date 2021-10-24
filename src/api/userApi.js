@@ -32,7 +32,6 @@ export const verifyUser = (formData) => {
       resolve(result.data);
       console.log(result.data);
       if (result.data.status === "success") {
-        console.log(result.data);
         resolve(result.data);
       }
 

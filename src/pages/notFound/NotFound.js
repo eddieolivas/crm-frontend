@@ -7,10 +7,13 @@ export const NotFound = () => {
   return (
     <div className="not-found-page">
       <div className="loginContainer rounded bg-white p-4">
-        <h1>Error 404 - Not all who wander are lost...</h1>
+        <h1>Error 404</h1>
+        <h2 className="text-info">Not all who wander are lost...</h2>
         <p>Sorry that page does not exist on this site.</p>
         <p>
-          Try returning to the <Link to="/">homepage</Link>
+          <strong>
+            Try returning to the <Link to="/">homepage.</Link>
+          </strong>
         </p>
       </div>
     </div>

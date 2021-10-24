@@ -13,18 +13,17 @@ const initialResponse = {
 
 export const Verification = () => {
   const { _id, email } = useParams();
-  const formData = { _id, email };
 
   const [response, setResponse] = useState(initialResponse);
 
   useEffect(() => {
     const apiCall = async () => {
-      const result = await verifyUser(formData);
+      const result = await verifyUser({ _id, email });
       setResponse(result);
     };
 
     !response.status && apiCall();
-  }, [response]);
+  }, [response, _id, email]);
 
   // Call API to verify user ID
 
