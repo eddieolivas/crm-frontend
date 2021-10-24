@@ -5,21 +5,40 @@ const loginUrl = `${rootUrl}user/login`;
 const userProfileUrl = `${rootUrl}user`;
 const logoutUrl = `${rootUrl}user/logout`;
 const getTokenURL = `${rootUrl}tokens`;
+const verifyUrl = `${userProfileUrl}/verify`;
 
 export const registerNewUser = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await axios.post(userProfileUrl, formData);
-      console.log(result.data);
 
       if (result.data.status === "success") {
+        console.log(result.data);
         resolve(result.data);
       }
 
       reject(result.data);
     } catch (error) {
-      console.log(error);
       reject(error);
+    }
+  });
+};
+
+export const verifyUser = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.patch(verifyUrl, formData);
+
+      resolve(result.data);
+      console.log(result.data);
+      if (result.data.status === "success") {
+        console.log(result.data);
+        resolve(result.data);
+      }
+
+      reject(result.data);
+    } catch (error) {
+      reject({ status: "error", message: error.message });
     }
   });
 };

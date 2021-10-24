@@ -85,7 +85,17 @@ const RegistrationForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(userRegistration(formData));
+    const { name, phone, email, company, address, password } = formData;
+    const registrationData = {
+      name,
+      phone,
+      email,
+      company,
+      address,
+      password,
+    };
+
+    dispatch(userRegistration(registrationData));
     window.scrollTo(0, 0);
   };
 

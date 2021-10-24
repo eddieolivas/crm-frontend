@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import "./App.css";
 import { Entry } from "./pages/entry/Entry";
@@ -9,6 +14,8 @@ import { Dashboard } from "./pages/dashboard/Dashboard";
 import { TicketList } from "./pages/ticketList/TicketList";
 import { Ticket } from "./pages/ticket/Ticket";
 import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
+import { NotFound } from "./pages/notFound/NotFound";
+import { Verification } from "./pages/verification/Verification";
 
 function App() {
   return (
@@ -20,6 +27,9 @@ function App() {
           </Route>
           <Route exact path="/registration">
             <Registration />
+          </Route>
+          <Route exact path="/verification/:_id/:email">
+            <Verification />
           </Route>
           <PrivateRoute path="/dashboard">
             <Dashboard />
@@ -33,6 +43,8 @@ function App() {
           <PrivateRoute path="/ticket/:ticketid">
             <Ticket />
           </PrivateRoute>
+          <Route path="/404" component={NotFound} />
+          <Redirect to="/404" />
         </Switch>
       </Router>
     </div>
