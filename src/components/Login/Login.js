@@ -16,7 +16,7 @@ import { loginPending, loginFailed, loginSuccess } from "./loginSlice";
 import { userLogin } from "../../api/userApi";
 import { getUserProfile } from "../../pages/dashboard/userAction";
 
-export const Login = ({ formSwitcher }) => {
+export const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
@@ -111,9 +111,7 @@ export const Login = ({ formSwitcher }) => {
               />
             )}
             <hr />
-            <a href="#!" onClick={() => formSwitcher("reset")}>
-              Forgot Your Password?
-            </a>
+            <Link to="/reset-password">Forgot Your Password?</Link>
             <br />
             <p className="py-4">
               Are you new here? <Link to="/registration">Register Now</Link>

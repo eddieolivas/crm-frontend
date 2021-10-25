@@ -16,6 +16,7 @@ import { Ticket } from "./pages/ticket/Ticket";
 import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
 import { NotFound } from "./pages/notFound/NotFound";
 import { Verification } from "./pages/verification/Verification";
+import { ResetPassword } from "./pages/reset-password/ResetPassword";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route exact path="/verification/:_id/:email">
             <Verification />
+          </Route>
+          <Route exact path="/reset-password">
+            <ResetPassword />
           </Route>
           <PrivateRoute path="/dashboard">
             <Dashboard />
