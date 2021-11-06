@@ -6,6 +6,7 @@ const userProfileUrl = `${rootUrl}user`;
 const logoutUrl = `${rootUrl}user/logout`;
 const getTokenURL = `${rootUrl}tokens`;
 const verifyUrl = `${userProfileUrl}/verify`;
+const resetPassUrl = `${userProfileUrl}/reset-password`;
 
 export const registerNewUser = (formData) => {
   return new Promise(async (resolve, reject) => {
@@ -119,6 +120,22 @@ export const getNewAccessJWT = () => {
         localStorage.removeItem("crmSite");
       }
       reject(false);
+    }
+  });
+};
+
+export const resetPassword = (email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { data } = await axios.post(resetPassUrl, { email });
+
+      if (data.status === "success") {
+        resolve(data);
+      }
+
+      reject({ status: "error", message: data.message });
+    } catch (error) {
+      reject({ status: "error", message: error.message });
     }
   });
 };

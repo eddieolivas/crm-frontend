@@ -239,7 +239,7 @@ const RegistrationForm = () => {
                 type="submit"
                 disabled={Object.values(passwordError).includes(false)}
               >
-                Log In
+                Register
               </Button>
               {isLoading && (
                 <Spinner
