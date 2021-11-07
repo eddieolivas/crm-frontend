@@ -124,10 +124,26 @@ export const getNewAccessJWT = () => {
   });
 };
 
-export const resetPassword = (email) => {
+export const requestOtp = (email) => {
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.post(resetPassUrl, { email });
+
+      if (data.status === "success") {
+        resolve(data);
+      }
+
+      reject({ status: "error", message: data.message });
+    } catch (error) {
+      reject({ status: "error", message: error.message });
+    }
+  });
+};
+
+export const resetPassword = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { data } = await axios.patch(resetPassUrl, formData);
 
       if (data.status === "success") {
         resolve(data);

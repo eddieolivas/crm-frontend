@@ -4,6 +4,8 @@ const initialState = {
   isLoading: false,
   status: "",
   message: "",
+  showUpdatePasswordForm: false,
+  email: "",
 };
 
 const passwordResetSlice = createSlice({
@@ -16,6 +18,13 @@ const passwordResetSlice = createSlice({
       state.message = "";
     },
     passwordResetSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.status = "success";
+      state.message = payload.message;
+      state.showUpdatePasswordForm = true;
+      state.email = payload.email;
+    },
+    updatePasswordSuccess: (state, { payload }) => {
       state.isLoading = false;
       state.status = "success";
       state.message = payload;
@@ -40,6 +49,7 @@ export const {
   passwordResetSuccess,
   passwordResetFailed,
   clearPasswordResetMessage,
+  updatePasswordSuccess,
 } = actions;
 
 export default reducer;
