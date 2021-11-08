@@ -29,6 +29,10 @@ export const fetchAllTickets = () => async (dispatch) => {
 
     dispatch(fetchTicketSuccess(result.data.result));
   } catch (error) {
+    if (error.message === "Request failed with status code 403") {
+      sessionStorage.removeItem("accessJWT");
+      window.location.reload(false);
+    }
     dispatch(fetchTicketFailed(error.message));
   }
 };

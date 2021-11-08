@@ -10,8 +10,10 @@ export const getUserProfile = () => async (dispatch) => {
       return dispatch(getUserSuccess(result.user));
     }
 
+    sessionStorage.removeItem("accessJWT");
     dispatch(getUserFailed("User is not found."));
   } catch (error) {
+    sessionStorage.removeItem("accessJWT");
     dispatch(getUserFailed(error));
   }
 };

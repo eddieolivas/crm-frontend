@@ -11,6 +11,7 @@ export const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.login);
   const { user } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.tickets);
 
   useEffect(() => {
     const updateAccessJWT = async () => {
@@ -24,7 +25,13 @@ export const PrivateRoute = ({ children, ...rest }) => {
 
     !isAuth && sessionStorage.getItem("accessJWT") && dispatch(loginSuccess());
     !user._id && dispatch(getUserProfile());
-  }, [dispatch, isAuth, user._id]);
+
+    return () => {
+      !sessionStorage.getItem("accessJWT") &&
+        localStorage.getItem("crmSite") &&
+        updateAccessJWT();
+    };
+  }, [dispatch, isAuth, user._id, error]);
 
   return (
     <Route
