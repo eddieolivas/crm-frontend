@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrl = "http://localhost:3001/v1/";
+const rootUrl = process.env.API_URL;
 const loginUrl = `${rootUrl}user/login`;
 const userProfileUrl = `${rootUrl}user`;
 const logoutUrl = `${rootUrl}user/logout`;
