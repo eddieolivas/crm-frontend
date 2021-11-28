@@ -23,3 +23,9 @@ footer {
   background: #4c2c69;
   padding: 1rem;
 }
+
+@media screen and (max-width: 550px) {
+  .table-bordered > :not(caption) > * > * {
+    font-size: 10px;
+  }
+}
