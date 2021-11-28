@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrl = process.env.API_URL;
+const rootUrl = "http://54.177.57.249:3001/v1";
 
 // Action for getting all ticket data
 export const getAllTickets = () => {
